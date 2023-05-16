@@ -1,9 +1,9 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import Navbar from "../components/Navbar.component";
 
 const allQueries = [];
 
-const reducer = (state = allQueries, action) => {
+const reducer = (state, action) => {
     switch (action.type) {
         case "submit":
             return [...state, action.data]
@@ -13,34 +13,33 @@ const reducer = (state = allQueries, action) => {
 };
 
 export default function Contact() {
-    const [data, setData] = useState({name: '', email: '', query: ''})
-    useEffect(() => console.log(data), [data])
+    const [data, setData] = useState({ name: '', email: '', query: '' })
     const [queries, dispatch] = useReducer(reducer, allQueries)
+
     function submitForm(e) {
         e.preventDefault()
         dispatch({ type: 'submit', data: data })
-        alert('Form Submitted Successfully!@')
-        setData({name: '', email: '', query: ''})
         console.log(queries);
+        alert('Form Submitted Successfully!@')
+        setData({ name: '', email: '', query: '' })
     }
     return (
         <>
             <Navbar />
-            <form className="m-5">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Name</label>
-                    <input type="text" value={data.name} onChange={(e) => setData({...data, 'name': e.target.value})} class="form-control" name='name' id="name" aria-describedby="nameHelp" />
+            <form className="m-5" onSubmit={submitForm}>
+                <div className="mb-3">
+                    <label htmlFor="nameSample" className="form-label">Name</label>
+                    <input type="text" value={data.name} onChange={(e) => setData({ ...data, 'name': e.target.value })} className="form-control" name='name' id="nameSample" aria-describedby="nameHelp" />
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" value={data.email} class="form-control" onChange={(e) => setData({...data, 'email': e.target.value})} name='email' id="email" aria-describedby="emailHelp" />
+                <div className="mb-3">
+                    <label htmlFor="emailSample" className="form-label">Email address</label>
+                    <input type="email" value={data.email} className="form-control" onChange={(e) => setData({ ...data, 'email': e.target.value })} name='email' id="emailSample" aria-describedby="emailHelp" />
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Query</label>
-                    <input type="text" value={data.query} class="form-control" onChange={(e) => setData({...data, 'query': e.target.value})} name='query' id="query" aria-describedby="queryHelp" />
+                <div className="mb-3">
+                    <label htmlFor="querySample" className="form-label">Query</label>
+                    <input type="text" value={data.query} className="form-control" onChange={(e) => setData({ ...data, 'query': e.target.value })} name='query' id="querySample" aria-describedby="queryHelp" />
                 </div>
-
-                <button onClick={submitForm} type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </>
     )
