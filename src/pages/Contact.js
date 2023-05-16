@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import Navbar from "../components/Navbar.component";
 
 const allQueries = [{
-    username: "",
+    name: "",
     email: "",
     query: ''
 }];
@@ -21,7 +21,8 @@ export default function Contact() {
     const [queries, dispatch] = useReducer(reducer, allQueries)
     function submitForm(e) {
         e.preventDefault()
-        dispatch({ type: 'submit', data: data }, () => console.log(queries))
+        dispatch({ type: 'submit', data: data })
+        console.log(queries);
     }
     return (
         <>
@@ -29,15 +30,15 @@ export default function Contact() {
             <form className="m-5">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Name</label>
-                    <input type="text" onChange={(e) => setData({...data, 'name': e.target.name})} class="form-control" name='name' id="exampleInputEmail1" aria-describedby="nameHelp" />
+                    <input type="text" value={data.name} onChange={(e) => setData({...data, 'name': e.target.name})} class="form-control" name='name' id="name" aria-describedby="nameHelp" />
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" onChange={(e) => setData({...data, 'email': e.target.email})} name='email' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input type="email" value={data.email} class="form-control" onChange={(e) => setData({...data, 'email': e.target.email})} name='email' id="email" aria-describedby="emailHelp" />
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Query</label>
-                    <input type="text" class="form-control" onChange={(e) => setData({...data, 'query': e.target.query})} name='query' id="exampleInputEmail1" aria-describedby="queryHelp" />
+                    <input type="text" value={data.query} class="form-control" onChange={(e) => setData({...data, 'query': e.target.query})} name='query' id="query" aria-describedby="queryHelp" />
                 </div>
 
                 <button onClick={submitForm} type="submit" class="btn btn-primary">Submit</button>
